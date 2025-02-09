@@ -30,16 +30,22 @@ const CommentForm = ({ postid }: CommentFormProps) => {
 
     return (
         profile && (
-            <form onSubmit={handleSubmit(onSubmit)} className="mt-6 w-full flex gap-2">
-                <input
-                    type="text"
-                    className="input input-bordered flex-1"
-                    placeholder="댓글을 입력하세요."
-                    {...register("content", {
-                        required: "댓글을 입력해주세요.",
-                    })}
-                />
-                {errors.content && <h5 className="text-error">{errors.content.message}</h5>}
+            <form onSubmit={handleSubmit(onSubmit)} className="mt-6 w-full flex gap-4">
+                <div className="flex-1 relative space-y-2">
+                    <input
+                        type="text"
+                        className="w-full input input-bordered flex-1 pt-4 h-20"
+                        placeholder="댓글을 입력하세요."
+                        {...register("content", {
+                            required: "댓글을 입력해주세요.",
+                        })}
+                    />
+                    <div className="absolute top-1 left-4 flex items-center gap-2">
+                        <img src={profile.avatar} className="w-4 h-4 rounded-full" />
+                        <h5>{profile.username}</h5>
+                    </div>
+                    {errors.content && <h5 className="text-error">{errors.content.message}</h5>}
+                </div>
                 <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
                     댓글 작성
                 </button>

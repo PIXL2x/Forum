@@ -17,7 +17,7 @@ const ChannelLayout = async ({
     }
 
     return (
-        <div className="relative flex gap-10">
+        <div className="w-full h-full flex gap-10 justify-center">
             <div className="w-[768px]">{children}</div>
             <ChannelInfo {...channel} />
         </div>

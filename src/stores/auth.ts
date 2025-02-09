@@ -1,14 +1,8 @@
 import { addImageFromData } from "@/actions/assets";
 import { isExistingUsername } from "@/actions/profiles";
 import { supabaseBrowserClient } from "@/supabase/supabaseClient";
+import { Profile } from "@/types/app.types";
 import { create } from "zustand";
-
-export type Profile = {
-    id: string;
-    email: string;
-    username: string;
-    avatar_url: string;
-};
 
 export type AuthStatus = {
     success: boolean;
