@@ -14,7 +14,7 @@ const MainLayout = async ({
         <div className="relative">
             <Navbar />
             <Sidebar recommend_channels={channels} subscribed_channels={subscribed_channels} />
-            <main className="ml-[200px] px-2 pt-10 w-[calc(100vw-200px)] flex items-center justify-center">{children}</main>
+            <main className="ml-[230px] px-2 pt-10 w-[calc(100vw-230px)] flex items-center justify-center">{children}</main>
         </div>
     );
 };

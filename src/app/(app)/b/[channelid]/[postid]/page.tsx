@@ -5,21 +5,22 @@ import CommentForm from "@/components/Comment/CommentForm";
 import CommentList from "@/components/Comment/CommentList";
 import CopyLinkButton from "@/components/CopyLinkButton";
 import PostContentView from "@/components/Post/PostContentView";
+import PostNotFound from "@/components/Post/PostNotFound";
 import { categoryToText } from "@/lib/category";
 import { postItemDate } from "@/lib/date";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 const PostPage = async ({ params }: { params: Promise<{ postid: string }> }) => {
     const postid = (await params).postid;
 
     const post = await getPostFromID(postid);
-    const comments = await getCommentsFromPost(postid);
-    const profile = await getProfileFromId(post.author);
 
     if (!post) {
-        redirect("/home");
+        return <PostNotFound />;
     }
+
+    const comments = await getCommentsFromPost(postid);
+    const profile = await getProfileFromId(post.author);
 
     return (
         <div className="mt-10 mb-20 w-full space-y-4">

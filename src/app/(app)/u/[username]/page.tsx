@@ -1,6 +1,6 @@
 import { getPostsFromUser } from "@/actions/posts";
 import { getProfileFromUsername } from "@/actions/profiles";
-import PostList from "@/components/Post/PostList";
+import PostMainList from "@/components/Post/PostList";
 import { redirect } from "next/navigation";
 
 const UserPage = async ({ params }: { params: Promise<{ username: string }> }) => {

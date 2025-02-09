@@ -1,5 +1,6 @@
 import { getChannelByID } from "@/actions/channels";
 import ChannelInfo from "@/components/Channel/ChannelInfo";
+import ChannelNotFound from "@/components/Channel/ChannelNotFound";
 
 const ChannelLayout = async ({
     children,
@@ -10,10 +11,15 @@ const ChannelLayout = async ({
 }>) => {
     const { channelid } = await params;
     const channel = await getChannelByID(channelid);
+
+    if (!channel) {
+        return <ChannelNotFound />;
+    }
+
     return (
         <div className="relative flex gap-10">
             <div className="w-[768px]">{children}</div>
-            {channel && <ChannelInfo {...channel} />}
+            <ChannelInfo {...channel} />
         </div>
     );
 };

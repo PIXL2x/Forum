@@ -1,5 +1,5 @@
 import { countPagesFromChannel, getPostsFromChannel } from "actions/posts";
-import PostList from "components/Post/PostList";
+import PostMainList from "components/Post/PostMainList";
 import PostCreateButton from "@/components/Post/PostCreateButton";
 import PostCategorySelector from "@/components/Post/PostCategorySelector";
 import PostPageSelector from "@/components/Post/PostPageSelector";
@@ -52,7 +52,7 @@ const ChannelPage = async ({
             </div>
             <PostCategorySelector channelid={channelid} />
             <div className="h-4" />
-            <PostList posts={posts} />
+            <PostMainList posts={posts} />
             <div className="h-4" />
             <PostPageSelector channelid={channelid} page_count={page_count} category={category} />
         </div>

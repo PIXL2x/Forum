@@ -1,17 +1,17 @@
 "use client";
 
-import PostItem, { PostItemProps } from "./PostItem";
+import PostMainItem, { PostMainItemProps } from "./PostMainItem";
 
-export type PostListProps = {
-    posts: PostItemProps[];
+export type PostMainListProps = {
+    posts: PostMainItemProps[];
 };
 
-const PostList = ({ posts }: PostListProps) => {
+const PostMainList = ({ posts }: PostMainListProps) => {
     return (
         <div className="w-full flex flex-col bg-base-100 shadow-md rounded-lg">
             {posts.map((post, i) => (
                 <div key={post.id}>
-                    <PostItem {...post} />
+                    <PostMainItem {...post} />
                     {i !== posts.length - 1 && <div className="border-b border-base-300"></div>}
                 </div>
             ))}
@@ -24,4 +24,4 @@ const PostList = ({ posts }: PostListProps) => {
     );
 };
 
-export default PostList;
+export default PostMainList;

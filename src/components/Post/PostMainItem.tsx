@@ -2,13 +2,14 @@
 
 import { categoryToText } from "@/lib/category";
 import { postItemDate } from "@/lib/date";
+import { Category } from "@/types/app.types";
 
 import Link from "next/link";
 
-export type PostItemProps = {
+export type PostMainItemProps = {
     id: string;
     title: string;
-    category: string;
+    category: Category;
     username: string;
     channel: string;
     created_at: string;
@@ -16,7 +17,7 @@ export type PostItemProps = {
     comments: number;
 };
 
-const PostItem = ({ id, title, thumbnail, username, channel, category, created_at, comments }: PostItemProps) => {
+const PostMainItem = ({ id, title, thumbnail, username, channel, category, created_at, comments }: PostMainItemProps) => {
     return (
         <Link
             href={`/b/${channel}/${id}`}
@@ -44,4 +45,4 @@ const PostItem = ({ id, title, thumbnail, username, channel, category, created_a
     );
 };
 
-export default PostItem;
+export default PostMainItem;

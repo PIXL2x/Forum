@@ -1,5 +1,6 @@
 "use server";
 
+import { Category } from "@/types/app.types";
 import { supabaseServerClient } from "../supabase/supabaseServer";
 
 export async function getPostFromID(postid: string) {
@@ -38,7 +39,7 @@ export async function getPostsFromChannel(channelid: string, category: string, p
             .from("posts_view")
             .select("*")
             .eq("channel", channelid)
-            .eq("category", category)
+            .eq("category", category as Category)
             .order("created_at", { ascending: false })
             .range((page - 1) * 10, page * 10 - 1);
 
@@ -103,7 +104,7 @@ export async function createPost(title: string, content: string, channelid: stri
         content,
         title,
         channel: channelid,
-        category,
+        category: category as Category,
         thumbnail,
         author: user.id,
     });
