@@ -4,19 +4,21 @@ export type Post = {
     id: number;
     title: string;
     content: string;
-    author: string;
-    thumbnail: string | null;
-    channel: string;
+    category: Category;
+    author_id: string;
+    thumbnail_url: string | null;
+    channel_id: string;
+    visits: number;
     created_at: string;
     updated_at: string;
 };
 
 export type Channel = {
     id: number;
-    name: string;
+    display_name: string;
     description: string;
-    image_icon: string;
-    image_banner: string;
+    icon_url: string;
+    banner_url: string;
     created_at: string;
     updated_at: string;
 };
@@ -24,15 +26,15 @@ export type Channel = {
 export type Profile = {
     id: number;
     username: string;
-    avatar: string;
+    avatar_url: string;
     created_at: string;
     updated_at: string;
 };
 export type Comment = {
     id: number;
     content: string;
-    author: string;
-    post: number;
+    author_id: string;
+    post_id: number;
     created_at: string;
     updated_at: string;
 };
@@ -41,29 +43,31 @@ export type Subscribe = {
     channel_id: number;
 };
 
-export type PostView = {
+export type PostItemView = {
     id: number;
     title: string;
     category: Category;
-    thumbnail: string | null;
-    channel: string;
-    username: string;
+    thumbnail_url: string | null;
+    channel_id: string;
+    author_username: string;
     comments: number;
+    visits: number;
     created_at: string;
     updated_at: string;
 };
-export type CommentView = {
+export type CommentItemView = {
     id: number;
+    post_id: number;
     content: string;
-    username: string;
-    post: number;
-    avatar: string;
+    author_username: string;
+    author_avatar_url: string;
     created_at: string;
+    updated_at: string;
 };
 
-export type SubscribeView = {
-    id: number;
-    name: string;
-    image_icon: string;
+export type SubscribedChannelView = {
     profile_id: number;
+    channel_id: number;
+    channel_display_name: string;
+    channel_icon_url: string;
 };
