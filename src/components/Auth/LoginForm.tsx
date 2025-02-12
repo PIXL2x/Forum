@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { useAuthStore } from "@/stores/auth";
+import Logo from "../Logo";
 
 type FormData = {
     email: string;
@@ -35,11 +36,11 @@ const LoginForm = () => {
         <form
             onSubmit={handleSubmit(onSubmit)}
             className="w-[400px] p-4 bg-base-100 rounded-tl-2xl flex flex-col gap-4 z-10 shadow-lg"
+            style={{ borderRadius: "20px 0 20px 0" }}
         >
-            <Link href="/home" className="flex items-center gap-2 justify-center">
-                <div className="w-10 h-10 bg-primary" style={{ maskImage: "url('/logo.svg')" }} />
-                <h1 className="text-4xl text-center text-primary font-extrabold">Pick</h1>
-            </Link>
+            <div className="w-full flex items-center justify-center">
+                <Logo />
+            </div>
             <div className="relative mt-4 w-full">
                 <h5 className="absolute left-4 top-2 text-content opacity-50">이메일</h5>
                 <input
@@ -74,13 +75,13 @@ const LoginForm = () => {
                 </div>
             </div>
 
-            <button type="submit" className="w-full btn btn-neutral mt-4 h-12" disabled={isSubmitting}>
-                로그인
+            <button type="submit" className="w-full btn btn-primary mt-4 h-12" disabled={isSubmitting}>
+                <h3 className="text-base-100">로그인</h3>
             </button>
 
             <div className="flex items-center justify-center gap-2">
                 <h5 className="text-center text-neutral-content">계정이 없으십니까?</h5>
-                <a href="signup" className="text-content font-semibold text-sm">
+                <a href="signup" className="font-semibold text-sm">
                     가입하기
                 </a>
             </div>

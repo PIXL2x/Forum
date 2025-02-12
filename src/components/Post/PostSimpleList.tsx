@@ -13,9 +13,9 @@ const PostSimpleList = ({ channel_id, channel_name, posts }: PostSimpleListProps
     return (
         <div className="w-[500px] flex flex-col bg-base-100 shadow-md rounded-lg">
             <Link href={`/b/${channel_id}`}>
-                <h1 className="font-bold p-4">{channel_name}</h1>
+                <h2 className="font-bold p-4">{channel_name}</h2>
             </Link>
-            {posts.map((post, i) => (
+            {posts.map((post) => (
                 <div key={post.id}>
                     <div className="border-b border-base-300"></div>
                     <PostSimpleItem {...post} />

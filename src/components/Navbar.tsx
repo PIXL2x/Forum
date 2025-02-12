@@ -4,35 +4,40 @@ import Link from "next/link";
 import { FaSearch } from "react-icons/fa";
 import Signout from "./Signout";
 import { useAuthStore } from "@/stores/auth";
+import Image from "next/image";
+import ThemeChanger from "./ThemeChanger";
+import Logo from "./Logo";
 
 const Navbar = () => {
     const profile = useAuthStore((state) => state.profile);
 
     return (
-        <nav className="fixed z-20 w-full h-[45px] bg-base-100 flex items-center justify-between px-10">
-            <Link href="/home" className="flex items-center gap-1">
-                <div className="w-8 h-8 bg-primary" style={{ maskImage: "url('/logo.svg')" }}></div>
-                <h1 className="text-primary font-bold">Pick</h1>
-            </Link>
-            <div className="hidden md:flex w-[386px] h-8 items-center justify-center">
-                <div className="relative w-full h-full max-w-[600px]">
-                    <input type="text" className="w-full input h-full bg-base-300" placeholder="검색" />
-                    <FaSearch className="absolute right-2 top-1/2 -translate-y-1/2" />
+        <nav className="fixed z-20 w-full h-[70px] flex items-center justify-center px-10 bg-base-200">
+            <div className="w-[1024px] h-[40px] flex items-center justify-between gap-4">
+                <Logo />
+                <div className="hidden md:flex w-[386px] h-8 items-center justify-center">
+                    <div className="relative w-full h-full max-w-[600px]">
+                        <input type="text" className="w-full input h-full bg-base-300" placeholder="검색" />
+                        <FaSearch className="absolute right-2 top-1/2 -translate-y-1/2" />
+                    </div>
                 </div>
-            </div>
-            {profile ? (
-                <div className="flex items-center gap-4">
-                    <Link href={`/u/${profile.username}`} className="flex items-center gap-1">
-                        <div className="w-8 h-8 bg-base-content" style={{ maskImage: `url(${profile.avatar_url})` }}></div>
-                        <p className="text-base-content">{profile.username}</p>
+                <ThemeChanger />
+                {profile ? (
+                    <div className="flex items-center gap-4">
+                        <Link href={`/u/${profile.username}`} className="flex items-center gap-2">
+                            <Image src={profile.avatar_url} alt="아바타" width={24} height={24} className="rounded-full" />
+                            <p className="text-base-content">{profile.username}</p>
+                        </Link>
+                        <Signout />
+                    </div>
+                ) : (
+                    <Link href="/login" className="h-full">
+                        <button className="w-[90px] h-full btn btn-sm btn-primary text-base-100 rounded-full">
+                            <h4>로그인</h4>
+                        </button>
                     </Link>
-                    <Signout />
-                </div>
-            ) : (
-                <Link href="/login">
-                    <button className="btn btn-sm">로그인 / 가입</button>
-                </Link>
-            )}
+                )}
+            </div>
         </nav>
     );
 };

@@ -1,13 +1,19 @@
 "use server";
 
 import { supabaseServerClient } from "@/supabase/supabaseServer";
+import { CommentItemView } from "@/types/app.types";
+import { PostgrestError } from "@supabase/supabase-js";
 
 export async function getCommentsFromPost(postid: string) {
     const supabase = await supabaseServerClient();
-    const { data: comments, error } = await supabase.from("comments_view").select("*").eq("post", parseInt(postid));
+    const { data: comments, error }: { data: CommentItemView[] | null; error: PostgrestError | null } = await supabase
+        .from("comments_item_view")
+        .select("*")
+        .eq("post_id", parseInt(postid));
 
     if (!comments || error) {
         console.log(`Error getting comments for post ${postid}`);
+        console.log(error);
         return [];
     }
 

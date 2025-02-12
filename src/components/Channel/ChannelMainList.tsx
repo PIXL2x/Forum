@@ -8,7 +8,7 @@ type ChannelMainListProps = {
 
 const ChannelMainList = ({ channels }: ChannelMainListProps) => {
     return (
-        <div className="flex  gap-4 flex-wrap">
+        <div className="flex gap-4 flex-wrap">
             {channels.map((channel) => (
                 <ChannelMainItem key={channel.id} {...channel} />
             ))}

@@ -13,7 +13,7 @@ const PostCreateButton = ({ channelid }: PostCreateButtonProps) => {
     return (
         profile && (
             <Link href={`/b/${channelid}/newPost`}>
-                <button className="btn btn-primary">글쓰기</button>
+                <button className="h-10 btn btn-primary">글쓰기</button>
             </Link>
         )
     );

@@ -2,7 +2,6 @@
 
 import clsx from "clsx";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 
 type PostPageSelectorProps = {
     channelid: string;
@@ -11,9 +10,6 @@ type PostPageSelectorProps = {
 };
 
 const PostPageSelector = ({ channelid, category, page_count }: PostPageSelectorProps) => {
-    const searchParams = useSearchParams();
-    const page = searchParams.get("page") ? parseInt(searchParams.get("page") as string) : 1;
-
     return (
         <div className="w-full flex gap-2 items-center justify-center">
             {Array.from({ length: page_count }, (_, i) => i + 1).map((page) => (

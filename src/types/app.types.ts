@@ -8,13 +8,13 @@ export type Post = {
     author_id: string;
     thumbnail_url: string | null;
     channel_id: string;
-    visits: number;
+    visit_count: number;
     created_at: string;
     updated_at: string;
 };
 
 export type Channel = {
-    id: number;
+    id: string;
     display_name: string;
     description: string;
     icon_url: string;
@@ -24,7 +24,7 @@ export type Channel = {
 };
 
 export type Profile = {
-    id: number;
+    id: string;
     username: string;
     avatar_url: string;
     created_at: string;
@@ -50,11 +50,26 @@ export type PostItemView = {
     thumbnail_url: string | null;
     channel_id: string;
     author_username: string;
-    comments: number;
-    visits: number;
+    comment_count: number;
+    visit_count: number;
+    like_count: number;
     created_at: string;
     updated_at: string;
 };
+
+export type PostContentView = {
+    id: number;
+    title: string;
+    content: string;
+    category: Category;
+    author_username: string;
+    author_avatar_url: string;
+    visit_count: number;
+    like_count: number;
+    created_at: string;
+    updated_at: string;
+};
+
 export type CommentItemView = {
     id: number;
     post_id: number;
@@ -65,9 +80,19 @@ export type CommentItemView = {
     updated_at: string;
 };
 
-export type SubscribedChannelView = {
-    profile_id: number;
-    channel_id: number;
+export type SubscribeChannelView = {
+    profile_id: string;
+    channel_id: string;
     channel_display_name: string;
     channel_icon_url: string;
+};
+
+export type ChannelItemView = {
+    id: string;
+    display_name: string;
+    description: string;
+    icon_url: string;
+    subscribe_count: number;
+    created_at: string;
+    updated_at: string;
 };

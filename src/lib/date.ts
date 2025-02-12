@@ -1,4 +1,4 @@
-import { format, formatDistanceToNow, subDays } from "date-fns";
+import { formatDistanceToNow, subDays } from "date-fns";
 import { ko } from "date-fns/locale";
 
 export function postItemDate(date: string) {

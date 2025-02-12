@@ -2,6 +2,7 @@
 
 import { createComment } from "@/actions/comments";
 import { useAuthStore } from "@/stores/auth";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
@@ -41,12 +42,12 @@ const CommentForm = ({ postid }: CommentFormProps) => {
                         })}
                     />
                     <div className="absolute top-1 left-4 flex items-center gap-2">
-                        <img src={profile.avatar} className="w-4 h-4 rounded-full" />
+                        <Image width={16} height={16} src={profile.avatar_url} alt="아바타" className="rounded-full" />
                         <h5>{profile.username}</h5>
                     </div>
                     {errors.content && <h5 className="text-error">{errors.content.message}</h5>}
                 </div>
-                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                <button type="submit" className="btn btn-primary text-base-100 rounded-full" disabled={isSubmitting}>
                     댓글 작성
                 </button>
             </form>

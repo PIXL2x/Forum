@@ -1,4 +1,4 @@
-import { countPagesFromChannel, getPostsFromChannel } from "actions/posts";
+import { countPagesFromChannel, getPostItemsFromChannel } from "actions/posts";
 import PostMainList from "components/Post/PostMainList";
 import PostCreateButton from "@/components/Post/PostCreateButton";
 import PostCategorySelector from "@/components/Post/PostCategorySelector";
@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import SubscribeButton from "@/components/SubscribeButton";
 import { isSubscribed } from "@/actions/subscribes";
 import { getChannelByID } from "@/actions/channels";
+import Image from "next/image";
 
 const ChannelPage = async ({
     params,
@@ -26,7 +27,7 @@ const ChannelPage = async ({
         redirect(`/b/${channelid}?category=all&page=1`);
     }
 
-    const posts = await getPostsFromChannel(channelid, category, page);
+    const posts = await getPostItemsFromChannel(channelid, category, page);
     const page_count = await countPagesFromChannel(channelid);
     const subscribed = await isSubscribed(channelid);
     const channel = await getChannelByID(channelid);
@@ -37,14 +38,18 @@ const ChannelPage = async ({
 
     return (
         <div className="relative mt-10 flex flex-col">
-            <img className="w-full h-[160px] object-cover rounded-lg" src={channel.image_banner} alt="Banner" />
-            <img
-                className="absolute left-6 w-20 h-20 object-cover rounded-full border-4 border-base-200 translate-y-[120px]"
-                src={channel.image_icon}
-                alt="Icon"
+            <div className="relative w-full h-[150px] overflow-hidden rounded-lg">
+                <Image fill src={channel.banner_url} className="object-cover" alt="배너" />
+            </div>
+            <Image
+                width={80}
+                height={80}
+                className="absolute left-6 object-cover rounded-full border-4 border-base-200 translate-y-[120px]"
+                src={channel.icon_url}
+                alt="아이콘"
             />
-            <div className="ml-[100px] h-[80px] flex items-center justify-between gap-4">
-                <h1 className="font-bold">{channel.name}</h1>
+            <div className="ml-[120px] h-[80px] flex items-center justify-between gap-4">
+                <h1 className="font-bold">{channel.display_name}</h1>
                 <div className="flex gap-4 items-center">
                     <SubscribeButton channelid={channelid} subscribed={subscribed} />
                     <PostCreateButton channelid={channelid} />

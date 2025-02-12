@@ -26,7 +26,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         setProfile: (profile) => set({ profile }),
         login: async (email, password) => {
             const supabase = supabaseBrowserClient();
-            const { error, data } = await supabase.auth.signInWithPassword({
+            const { error } = await supabase.auth.signInWithPassword({
                 email: email,
                 password: password,
             });
@@ -47,7 +47,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
             const avatar_url = await addImageFromData(avatar, "avatars");
 
-            const { error, data } = await supabase.auth.signUp({
+            const { error } = await supabase.auth.signUp({
                 email: email,
                 password: password,
                 options: {

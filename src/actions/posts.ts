@@ -1,12 +1,17 @@
 "use server";
 
-import { Category } from "@/types/app.types";
+import { Category, Post, PostContentView, PostItemView } from "@/types/app.types";
 import { supabaseServerClient } from "../supabase/supabaseServer";
+import { PostgrestError } from "@supabase/supabase-js";
 
-export async function getPostFromID(postid: string) {
+export async function getPostContentFromID(postid: string) {
     const supabase = await supabaseServerClient();
 
-    const { data: post, error } = await supabase.from("posts").select().eq("id", parseInt(postid)).single();
+    const { data: post, error }: { data: PostContentView | null; error: PostgrestError | null } = await supabase
+        .from("posts_content_view")
+        .select()
+        .eq("id", parseInt(postid))
+        .single();
 
     if (!post || error) {
         console.log(`Error getting post with id ${postid}`);
@@ -16,14 +21,14 @@ export async function getPostFromID(postid: string) {
     return post;
 }
 
-export async function getPostsFromChannel(channelid: string, category: string, page: number) {
+export async function getPostItemsFromChannel(channelid: string, category: string, page: number) {
     const supabase = await supabaseServerClient();
 
     if (category === "all") {
-        let { data: posts, error } = await supabase
-            .from("posts_view")
+        const { data: posts, error }: { data: PostItemView[] | null; error: PostgrestError | null } = await supabase
+            .from("posts_item_view")
             .select("*")
-            .eq("channel", channelid)
+            .eq("channel_id", channelid)
             .order("created_at", { ascending: false })
             .range((page - 1) * 10, page * 10 - 1);
 
@@ -35,10 +40,10 @@ export async function getPostsFromChannel(channelid: string, category: string, p
 
         return posts;
     } else {
-        let { data: posts, error } = await supabase
-            .from("posts_view")
+        const { data: posts, error }: { data: PostItemView[] | null; error: PostgrestError | null } = await supabase
+            .from("posts_item_view")
             .select("*")
-            .eq("channel", channelid)
+            .eq("channel_id", channelid)
             .eq("category", category as Category)
             .order("created_at", { ascending: false })
             .range((page - 1) * 10, page * 10 - 1);
@@ -53,10 +58,38 @@ export async function getPostsFromChannel(channelid: string, category: string, p
     }
 }
 
+export async function increasePostVisitCount(postid: string) {
+    const supabase = await supabaseServerClient();
+
+    const { error } = await supabase.rpc("increment_visit_count", { post_id: parseInt(postid) });
+    console.log(error);
+}
+
+export async function getRecentPostsFromChannel(channelid: string) {
+    const supabase = await supabaseServerClient();
+
+    const { data: posts, error }: { data: PostItemView[] | null; error: PostgrestError | null } = await supabase
+        .from("posts_item_view")
+        .select("*")
+        .eq("channel_id", channelid)
+        .order("created_at", { ascending: false })
+        .range(0, 4);
+
+    if (!posts || error) {
+        console.log(`Error getting posts from channel with id ${channelid}`);
+        return [];
+    }
+
+    return posts;
+}
+
 export async function countPagesFromChannel(channelid: string) {
     const supabase = await supabaseServerClient();
 
-    const { data, error } = await supabase.from("posts_view").select("count", { count: "exact" }).eq("channel", channelid);
+    const { data, error }: { data: { count: number }[] | null; error: PostgrestError | null } = await supabase
+        .from("posts_item_view")
+        .select("count", { count: "exact" })
+        .eq("channel_id", channelid);
 
     if (!data || error) {
         console.log(`Error counting posts from channel with id ${channelid}`);
@@ -78,14 +111,18 @@ export async function isPostMine(postid: string) {
         return false;
     }
 
-    const post = await getPostFromID(postid);
+    const { data: post }: { data: Post | null; error: PostgrestError | null } = await supabase
+        .from("posts")
+        .select("author_id")
+        .eq("id", parseInt(postid))
+        .single();
 
     if (!post) {
         console.log(`Post with id ${postid} not found`);
         return false;
     }
 
-    return post.author === user.id;
+    return post.author_id === user.id;
 }
 
 export async function createPost(title: string, content: string, channelid: string, category: string, thumbnail: string) {
@@ -113,10 +150,11 @@ export async function createPost(title: string, content: string, channelid: stri
 export async function getPostsFromUser(userid: string) {
     const supabase = await supabaseServerClient();
 
-    const { data: posts, error } = await supabase
-        .from("posts")
-        .select("*, author (username), comments (count), channel (name_id)")
-        .eq("author", userid);
+    const { data: posts, error }: { data: Post[] | null; error: PostgrestError | null } = await supabase
+        .from("posts_item_view")
+        .select("*")
+        .eq("author", userid)
+        .order("created_at", { ascending: false });
 
     if (!posts || error) {
         console.log(`Error getting posts from user with id ${userid}`);
