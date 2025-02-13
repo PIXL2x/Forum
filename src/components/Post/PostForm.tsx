@@ -33,9 +33,11 @@ const PostForm = ({ channelid }: PostFormProps) => {
     });
 
     const onSubmit = async (data: FormData) => {
-        await createPost(data.title, data.content, channelid, data.category, data.thumbnail);
+        console.log(data.thumbnail);
 
-        redirect(`/b/${channelid}`);
+        //await createPost(data.title, data.content, channelid, data.category, data.thumbnail);
+
+        //redirect(`/b/${channelid}`);
     };
 
     return (

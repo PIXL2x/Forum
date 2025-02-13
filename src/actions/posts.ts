@@ -140,10 +140,10 @@ export async function createPost(title: string, content: string, channelid: stri
     await supabase.from("posts").insert({
         content,
         title,
-        channel: channelid,
+        channel_id: channelid,
         category: category as Category,
-        thumbnail,
-        author: user.id,
+        thumbnail_url: thumbnail,
+        author_id: user.id,
     });
 }
 
@@ -162,4 +162,45 @@ export async function getPostsFromUser(userid: string) {
     }
 
     return posts;
+}
+
+export async function searchPostItems(query: string, page: number) {
+    query = decodeURIComponent(query);
+
+    const supabase = await supabaseServerClient();
+
+    const { data: posts, error }: { data: PostItemView[] | null; error: PostgrestError | null } = await supabase
+        .from("posts_item_view")
+        .select("*")
+        .ilike("title", `%${query}%`)
+        .order("created_at", { ascending: false })
+        .range((page - 1) * 10, page * 10 - 1);
+
+    if (!posts || error) {
+        console.log(`Error searching posts with query ${query}`);
+        return [];
+    }
+
+    return posts;
+}
+
+export async function countPagesWithSearch(query: string) {
+    query = decodeURIComponent(query);
+
+    const supabase = await supabaseServerClient();
+
+    const { data, error }: { data: { count: number }[] | null; error: PostgrestError | null } = await supabase
+        .from("posts_item_view")
+        .select("count", { count: "exact" })
+        .ilike("title", `%${query}%`);
+
+    if (!data || error) {
+        console.log(`Error counting posts with query ${query}`);
+        return -1;
+    }
+
+    let count = Math.ceil(data[0].count / 10);
+    count = count > 0 ? count : 1;
+
+    return count;
 }

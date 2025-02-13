@@ -16,33 +16,48 @@ const PostCategorySelector = ({ channelid }: PostCategorySelectorProps) => {
         <div className="flex gap-2">
             <Link
                 href={`/b/${channelid}?category=all&page=1`}
-                className={clsx("btn btn-sm shadow-sm", category === "all" ? "btn-primary" : "btn-pri")}
+                className={clsx(
+                    "btn btn-sm shadow-sm",
+                    category === "all" ? "btn-primary text-base-100" : "btn-secondary text-base-content"
+                )}
             >
-                전체
+                <h5>전체</h5>
             </Link>
             <Link
                 href={`/b/${channelid}?category=discussions&page=1`}
-                className={clsx("btn btn-sm shadow-sm", category === "discussions" ? "btn-primary" : "btn-active")}
+                className={clsx(
+                    "btn btn-sm shadow-sm",
+                    category === "discussions" ? "btn-primary text-base-100" : "btn-secondary text-base-content"
+                )}
             >
-                잡담
+                <h5>잡담</h5>
             </Link>
             <Link
                 href={`/b/${channelid}?category=announcements&page=1`}
-                className={clsx("btn btn-sm shadow-sm", category === "reviews" ? "btn-primary" : "btn-active")}
+                className={clsx(
+                    "btn btn-sm shadow-sm",
+                    category === "reviews" ? "btn-primary  text-base-100" : "btn-secondary text-base-content"
+                )}
             >
-                공지
+                <h5>공지</h5>
             </Link>
             <Link
                 href={`/b/${channelid}?category=questions&page=1`}
-                className={clsx("btn btn-sm shadow-sm", category === "questions" ? "btn-primary" : "btn-active")}
+                className={clsx(
+                    "btn btn-sm shadow-sm",
+                    category === "questions" ? "btn-primary  text-base-100" : "btn-secondary text-base-content"
+                )}
             >
-                질문
+                <h5>질문</h5>
             </Link>
             <Link
                 href={`/b/${channelid}?category=tips&page=1`}
-                className={clsx("btn btn-sm shadow-sm", category === "tips" ? "btn-primary" : "btn-active")}
+                className={clsx(
+                    "btn btn-sm shadow-sm",
+                    category === "tips" ? "btn-primary  text-base-100" : "btn-secondary text-base-content"
+                )}
             >
-                팁
+                <h5>팁</h5>
             </Link>
         </div>
     );

@@ -16,9 +16,9 @@ const PostPageSelector = ({ channelid, category, page_count }: PostPageSelectorP
                 <Link
                     key={page}
                     href={`/b/${channelid}?category=${category}&page=${page}`}
-                    className={clsx("btn btn-sm", page && "btn-primary")}
+                    className={clsx("btn btn-sm", page ? "btn-primary" : "btn-secondary")}
                 >
-                    {page}
+                    <h5 className="text-base-content">{page}</h5>
                 </Link>
             ))}
         </div>

@@ -27,9 +27,9 @@ const LikeButton = ({ postid, liked, likeCount }: LikeButtonProps) => {
 
     return (
         profile && (
-            <button onClick={handleButtonClicked} className={clsx("btn btn-active rounded-full", liked && "btn-outline")}>
+            <button onClick={handleButtonClicked} className={clsx("btn btn-secondary rounded-full", liked && "btn-outline")}>
                 <FcLike />
-                <h5>{likeCount}</h5>
+                <h5 className="text-base-content">{likeCount}</h5>
             </button>
         )
     );

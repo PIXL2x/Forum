@@ -9,7 +9,7 @@ const Signout = () => {
         signout();
     };
     return (
-        <button onClick={handleSignout} className="btn btn-sm btn-error">
+        <button onClick={handleSignout} className="btn btn-sm btn-error rounded-full">
             로그아웃
         </button>
     );

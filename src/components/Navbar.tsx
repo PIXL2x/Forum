@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { FaSearch } from "react-icons/fa";
 import Signout from "./Signout";
 import { useAuthStore } from "@/stores/auth";
 import Image from "next/image";
 import ThemeChanger from "./ThemeChanger";
 import Logo from "./Logo";
+import SearchForm from "./SearchForm";
 
 const Navbar = () => {
     const profile = useAuthStore((state) => state.profile);
@@ -15,12 +15,7 @@ const Navbar = () => {
         <nav className="fixed z-20 w-full h-[70px] flex items-center justify-center px-10 bg-base-200">
             <div className="w-[1024px] h-[40px] flex items-center justify-between gap-4">
                 <Logo />
-                <div className="hidden md:flex w-[386px] h-8 items-center justify-center">
-                    <div className="relative w-full h-full max-w-[600px]">
-                        <input type="text" className="w-full input h-full bg-base-300" placeholder="검색" />
-                        <FaSearch className="absolute right-2 top-1/2 -translate-y-1/2" />
-                    </div>
-                </div>
+                <SearchForm />
                 <ThemeChanger />
                 {profile ? (
                     <div className="flex items-center gap-4">

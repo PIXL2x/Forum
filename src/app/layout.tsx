@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="kr">
-            <body className={`${pretendard.variable} select-none font-pretendard bg-base-200 min-h-screen overflow-x-hidden`}>
+            <body className={`${pretendard.variable} font-pretendard bg-base-200 min-h-screen overflow-x-hidden`}>
                 <AuthSubscriber />
                 <ThemeSubscriber />
                 {children}

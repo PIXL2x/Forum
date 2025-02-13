@@ -2,6 +2,7 @@
 
 import { useAuthStore } from "@/stores/auth";
 import Link from "next/link";
+import { FaPlus } from "react-icons/fa";
 
 type PostCreateButtonProps = {
     channelid: string;
@@ -13,7 +14,10 @@ const PostCreateButton = ({ channelid }: PostCreateButtonProps) => {
     return (
         profile && (
             <Link href={`/b/${channelid}/newPost`}>
-                <button className="h-10 btn btn-primary">글쓰기</button>
+                <button className="btn btn-primary text-base-100 rounded-full flex items-center">
+                    <FaPlus size={16} />
+                    <h4>글쓰기</h4>
+                </button>
             </Link>
         )
     );

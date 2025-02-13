@@ -15,7 +15,7 @@ export default {
                 light: {
                     "color-scheme": "light",
                     primary: "#3F9DFF",
-                    secondary: "#DEE2E6",
+                    secondary: "#D5D6D7",
                     "secondary-content": "oklch(98.71% 0.0106 342.55)",
                     accent: "oklch(76.76% 0.184 183.61)",
                     neutral: "#464E55",
@@ -30,7 +30,7 @@ export default {
                 dark: {
                     "color-scheme": "dark",
                     primary: "oklch(65.69% 0.196 275.75)",
-                    secondary: "oklch(74.8% 0.26 342.55)",
+                    secondary: "#191A1B",
                     accent: "oklch(74.51% 0.167 183.61)",
                     neutral: "#2a323c",
                     "neutral-content": "#A6ADBB",

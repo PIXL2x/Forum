@@ -25,8 +25,11 @@ const SubscribeButton = ({ channelid, subscribed }: SubscribeButtonProps) => {
 
     return (
         profile && (
-            <button onClick={handleButtonClicked} className={clsx("h-10 btn btn-neutral", subscribed && "btn-outline")}>
-                {subscribed ? "구독 해제" : "구독"}
+            <button
+                onClick={handleButtonClicked}
+                className={clsx("btn btn-secondary text-base-content rounded-full", subscribed && "btn-outline")}
+            >
+                <h3>{subscribed ? "구독 해제" : "구독"}</h3>
             </button>
         )
     );
