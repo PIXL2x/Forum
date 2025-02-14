@@ -32,5 +32,5 @@ export async function createComment(postid: string, content: string) {
         return;
     }
 
-    await supabase.from("comments").insert([{ post: parseInt(postid), author: user.id, content }]);
+    await supabase.from("comments").insert([{ post_id: parseInt(postid), author_id: user.id, content }]);
 }

@@ -6,7 +6,7 @@ export type Post = {
     content: string;
     category: Category;
     author_id: string;
-    thumbnail_url: string | null;
+    thumbnail_url: string;
     channel_id: string;
     visit_count: number;
     created_at: string;
@@ -47,7 +47,7 @@ export type PostItemView = {
     id: number;
     title: string;
     category: Category;
-    thumbnail_url: string | null;
+    thumbnail_url: string;
     channel_id: string;
     author_username: string;
     comment_count: number;

@@ -4,7 +4,7 @@ import { likePost, unlikePost } from "@/actions/likes";
 import { useAuthStore } from "@/stores/auth";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
-import { FcLike } from "react-icons/fc";
+import { FcLike, FcDislike } from "react-icons/fc";
 
 type LikeButtonProps = {
     postid: string;
@@ -28,8 +28,8 @@ const LikeButton = ({ postid, liked, likeCount }: LikeButtonProps) => {
     return (
         profile && (
             <button onClick={handleButtonClicked} className={clsx("btn btn-secondary rounded-full", liked && "btn-outline")}>
-                <FcLike />
-                <h5 className="text-base-content">{likeCount}</h5>
+                {liked ? <FcDislike /> : <FcLike />}
+                <h5 className="text-secondary-content">{likeCount}</h5>
             </button>
         )
     );

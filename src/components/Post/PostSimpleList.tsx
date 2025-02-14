@@ -11,7 +11,7 @@ export type PostSimpleListProps = {
 
 const PostSimpleList = ({ channel_id, channel_name, posts }: PostSimpleListProps) => {
     return (
-        <div className="w-[500px] flex flex-col bg-base-100 shadow-md rounded-lg">
+        <div className="w-[450px] flex flex-col bg-base-100 shadow-md rounded-lg">
             <Link href={`/b/${channel_id}`}>
                 <h2 className="font-bold p-4">{channel_name}</h2>
             </Link>

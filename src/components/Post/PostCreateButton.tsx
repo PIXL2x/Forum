@@ -14,7 +14,7 @@ const PostCreateButton = ({ channelid }: PostCreateButtonProps) => {
     return (
         profile && (
             <Link href={`/b/${channelid}/newPost`}>
-                <button className="btn btn-primary text-base-100 rounded-full flex items-center">
+                <button className="btn btn-primary rounded-full flex items-center">
                     <FaPlus size={16} />
                     <h4>글쓰기</h4>
                 </button>

@@ -96,7 +96,10 @@ export async function countPagesFromChannel(channelid: string) {
         return -1;
     }
 
-    return Math.ceil(data[0].count / 10);
+    let count = Math.ceil(data[0].count / 10);
+    count = count > 0 ? count : 1;
+
+    return count;
 }
 
 export async function isPostMine(postid: string) {
@@ -203,4 +206,23 @@ export async function countPagesWithSearch(query: string) {
     count = count > 0 ? count : 1;
 
     return count;
+}
+
+export async function getBannerPosts() {
+    const supabase = await supabaseServerClient();
+
+    const { data: posts, error }: { data: PostItemView[] | null; error: PostgrestError | null } = await supabase
+        .from("posts_item_view")
+        .select("*")
+        .neq("thumbnail_url", "")
+        .order("visit_count", { ascending: false })
+        .range(0, 2);
+
+    if (!posts || error) {
+        console.log(`Error getting hotest posts`);
+        console.log(error);
+        return [];
+    }
+
+    return posts;
 }

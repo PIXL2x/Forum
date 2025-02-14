@@ -14,7 +14,7 @@ export type PostMainItemProps = {
     author_username: string;
     channel_id: string;
     created_at: string;
-    thumbnail_url: string | null;
+    thumbnail_url: string;
     comment_count: number;
     visit_count: number;
 };

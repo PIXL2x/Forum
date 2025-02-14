@@ -4,11 +4,11 @@ import { Controller, useForm } from "react-hook-form";
 import { createPost } from "@/actions/posts";
 import PostContentEditor from "./PostContentEditor";
 import { redirect } from "next/navigation";
+import { addImage, addImageFromData } from "@/actions/assets";
 
 type FormData = {
     title: string;
     content: string;
-    thumbnail: string;
     category: string;
 };
 
@@ -26,18 +26,35 @@ const PostForm = ({ channelid }: PostFormProps) => {
         defaultValues: {
             title: "",
             content:
-                "<p>내용을 입력하세요</p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p>",
-            thumbnail: "",
+                "<h4>내용을 입력하세요</h4><h4></h4><h4></h4><h4></h4><h4></h4><h4></h4><h4></h4><h4></h4><h4></h4><h4></h4><h4></h4><h4></h4><h4></h4>",
             category: "discussions",
         },
     });
 
     const onSubmit = async (data: FormData) => {
-        console.log(data.thumbnail);
+        let thumbnail = "";
 
-        //await createPost(data.title, data.content, channelid, data.category, data.thumbnail);
+        // 이미지 치환
+        let imageTagIdx = data.content.indexOf("<img");
+        while (imageTagIdx !== -1) {
+            const imageSrcIdx = data.content.indexOf("src=", imageTagIdx);
+            const imageSrcStartIdx = data.content.indexOf('"', imageSrcIdx) + 1;
+            const imageSrcEndIdx = data.content.indexOf('"', imageSrcStartIdx);
 
-        //redirect(`/b/${channelid}`);
+            const imageSrc = data.content.substring(imageSrcStartIdx, imageSrcEndIdx);
+
+            const publicUrl = await addImageFromData(imageSrc, "posts");
+            thumbnail = publicUrl;
+
+            // base64 image src를 public url로 변경
+            data.content = data.content.substring(0, imageSrcStartIdx) + publicUrl + data.content.substring(imageSrcEndIdx);
+
+            imageTagIdx = data.content.indexOf("<img", imageTagIdx + publicUrl.length);
+        }
+
+        await createPost(data.title, data.content, channelid, data.category, thumbnail);
+
+        redirect(`/b/${channelid}`);
     };
 
     return (
@@ -64,29 +81,16 @@ const PostForm = ({ channelid }: PostFormProps) => {
                         <option value="discussions">잡담</option>
                         <option value="questions">질문</option>
                         <option value="announcements">공지</option>
+                        <option value="tips">팁</option>
                     </select>
                     <h5 className="text-red-500 mt-1">{errors.category?.message}</h5>
                 </div>
             </div>
             <div>
                 <Controller
-                    name="thumbnail"
+                    name="content"
                     control={control}
-                    render={({ field: { onChange: onThumbnailChange } }) => (
-                        <Controller
-                            name="content"
-                            control={control}
-                            render={({ field: { onChange, value } }) => (
-                                <PostContentEditor
-                                    value={value}
-                                    onChange={(newContent, newThumbnail) => {
-                                        onChange(newContent);
-                                        onThumbnailChange(newThumbnail);
-                                    }}
-                                />
-                            )}
-                        />
-                    )}
+                    render={({ field: { onChange, value } }) => <PostContentEditor value={value} onChange={onChange} />}
                 />
 
                 <h5 className="text-red-500 mt-1">{errors.content?.message}</h5>
