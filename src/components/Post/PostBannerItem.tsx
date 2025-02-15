@@ -1,3 +1,5 @@
+"use client";
+
 import { postItemDate } from "@/lib/date";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,8 +27,8 @@ const PostBannerItem = ({
     created_at,
 }: PostBannerItemProps) => {
     return (
-        <Link href={`/b/${channel_id}/${id}`} className="relative flex-1 h-[210px] flex flex-col">
-            <div className="relative w-[270px] h-[120px] rounded-lg bg-base-300 overflow-hidden">
+        <Link href={`/b/${channel_id}/${id}`} className="relative w-[280px] h-[210px] flex flex-col">
+            <div className="relative w-full h-[120px] rounded-lg bg-base-300 overflow-hidden">
                 {thumbnail_url && <Image fill src={thumbnail_url} alt="썸네일" className="object-cover" />}
             </div>
             <h3 className="flex-1 mt-2 w-full font-semibold line-clamp-2">{title}</h3>

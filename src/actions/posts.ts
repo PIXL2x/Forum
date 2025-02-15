@@ -216,7 +216,7 @@ export async function getBannerPosts() {
         .select("*")
         .neq("thumbnail_url", "")
         .order("visit_count", { ascending: false })
-        .range(0, 2);
+        .range(0, 5);
 
     if (!posts || error) {
         console.log(`Error getting hotest posts`);

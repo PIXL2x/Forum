@@ -1,14 +1,14 @@
 "use server";
 
 import { supabaseServerClient } from "@/supabase/supabaseServer";
-import { Channel, ChannelItemView, SubscribeChannelView } from "@/types/app.types";
+import { ChannelItemView, SubscribeChannelView } from "@/types/app.types";
 import { PostgrestError } from "@supabase/supabase-js";
 
 export async function getChannelByID(id: string) {
     const supabase = await supabaseServerClient();
 
-    const { data: channel, error }: { data: Channel | null; error: PostgrestError | null } = await supabase
-        .from("channels")
+    const { data: channel, error }: { data: ChannelItemView | null; error: PostgrestError | null } = await supabase
+        .from("channels_item_view")
         .select("*")
         .eq("id", id)
         .single();

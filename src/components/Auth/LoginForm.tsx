@@ -2,7 +2,6 @@
 
 import { useForm } from "react-hook-form";
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import { useAuthStore } from "@/stores/auth";
 import Logo from "../Logo";
 
